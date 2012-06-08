@@ -1,0 +1,8 @@
+#*#
+*~
+*.o
+bin/
+*.a
+a.out
+
+samples/memory_manager/memory_manager_sample
