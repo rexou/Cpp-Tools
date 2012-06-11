@@ -26,7 +26,7 @@ namespace Debug
     if (!_file.is_open())
       return false;
 
-    _file << "==========================" << std::endl;
+    _file << "=========================" << std::endl;
     _file << "- Memory leaks tracker - " << std::endl;
     _file << "=========================" << std::endl << std::endl;
 
