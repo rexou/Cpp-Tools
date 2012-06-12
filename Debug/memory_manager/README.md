@@ -29,4 +29,4 @@ TODO
 
 Atm, it's not that flexible:
 I will prolly provide an ILogger interface and several methods to configure it,
-so that the user could customize the way how datas are logged if he wants.
+so that the user could customize the way how datas are logged if he wants to.
