@@ -30,3 +30,9 @@ TODO
 Atm, it's not that flexible:
 I will prolly provide an ILogger interface and several methods to configure it,
 so that the user could customize the way how datas are logged if he wants to.
+
+NOTE
+-----
+
+This module has been realized in/for a C++03 context, I guess it would be easier to make sure
+your app isn't leaking with C++11 smart pointers.
