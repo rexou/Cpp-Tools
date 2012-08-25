@@ -1,17 +1,17 @@
-==========================
+=========================
 - Memory leaks tracker - 
 =========================
 
-++ Allocation  | 0x0x9e471b8 |       1 bytes | main.cpp (at line 37)
-++ Allocation  | 0x0x9e471e8 |       1 bytes | main.cpp (at line 38)
-++ Allocation  | 0x0x9e47220 |       6 bytes | main.cpp (at line 39) | Array
--- Deletion    | 0x0x9e471b8 |       1 bytes | main.cpp (at line 43)
--- Deletion    | 0x0x9e47220 |       6 bytes | main.cpp (at line 44) | Array
+++ Allocation  | 0x0x82741b8 |       1 byte  | main.cpp (at line 38)
+++ Allocation  | 0x0x82741e8 |       1 byte  | main.cpp (at line 39)
+++ Allocation  | 0x0x8274220 |       6 bytes | main.cpp (at line 40) | Array
+-- Deletion    | 0x0x82741e8 |       1 bytes | main.cpp (at line 44)
+-- Deletion    | 0x0x8274220 |       6 bytes | main.cpp (at line 45) | Array
 
- ========================================
-  A few memory leaks have been detected  
- ========================================
+========================================
+ A few memory leaks have been detected  
+========================================
 
--> 0x0x9e471e8 |       1 bytes | Allocated in file main.cpp (at line 38)
+-> 0x0x82741b8 |       1 bytes | Allocated in file main.cpp (at line 38)
 
--- 1 non freed block(s), 1 bytes --
+-- 1 non freed block(s), 1 byte  --

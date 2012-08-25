@@ -47,9 +47,9 @@ namespace Debug
       {
 	// Leaks
 	_file << std::endl;
-	_file << " ========================================" << std::endl;
-	_file << "  A few memory leaks have been detected  " << std::endl;
-	_file << " ========================================" << std::endl;
+	_file << "========================================" << std::endl;
+	_file << " A few memory leaks have been detected  " << std::endl;
+	_file << "========================================" << std::endl;
 	_file << std::endl;
 
 	// details about leaks
@@ -71,7 +71,7 @@ namespace Debug
 	// Logging total leaks' size
 	_file << std::endl << "-- "
 	      << static_cast<int>(_data_blocks.size()) << " non freed block(s), "
-	      << static_cast<int>(TotalSize)    << " bytes --"
+	      << static_cast<int>(TotalSize)    << (TotalSize > 1 ? " bytes --" : " byte  --")
 	      << std::endl;
       }
   }
@@ -94,7 +94,8 @@ namespace Debug
 
     // Logging current allocation properties
     _file << "++ Allocation  | 0x" << ptr
-	  << " | " << std::setw(7) << std::setfill(' ') << static_cast<int>(new_block.size) << " bytes"
+	  << " | " << std::setw(7) << std::setfill(' ') << static_cast<int>(new_block.size)
+	  << (new_block.size > 1 ? " bytes" : " byte ")
 	  << " | " << new_block.file << " (at line " << new_block.line << ")"
 	  << (is_array ? " | Array" : "")
 	  << std::endl;

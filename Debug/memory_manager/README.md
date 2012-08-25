@@ -10,7 +10,7 @@ done in your application.
 How it works
 ----------------
 
-- Add module files (.h/.cpp) to your project.
+- Add module files (.hpp/.cpp) to your project.
 - Turn on the debug mode ( -DDEBUG for instance with gcc)
 - Init the module (requested logfilename)
 - Use allocation/desallocation operators as always (full transparency)

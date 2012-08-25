@@ -1,3 +1,4 @@
+
 /*
 ** main.cpp for test utilities
 ** by le-cor_w aka rexou
@@ -34,14 +35,14 @@ int main()
   if (!(Debug::MemoryManager::init(DEFAULT_LOGFILE_NAME)))
     return 1;
 
-  A *_a = new A;
-  A *__a = new A();
-  A *___a = new A[2];
+  A *basic_a = new A;
+  A *basic_a2 = new A();
+  A *array_a = new A[2];
 
-  (void)__a;
+  (void)basic_a;
 
-  delete _a;
-  delete [] ___a;
+  delete basic_a2;
+  delete [] array_a;
 
   Debug::MemoryManager::report_leaks();
 }
