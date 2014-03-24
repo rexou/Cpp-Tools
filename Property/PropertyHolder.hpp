@@ -10,8 +10,8 @@
 #include "Property.hpp"
 
 /* 
-    Templated Class holding saved properties
-    Might be the base for our entities
+    Class created to hold properties with different types within the same container
+    using Type erasure
 */
 template <typename Key, bool ReplacingPolicy = true>
 class PropertyHolder
