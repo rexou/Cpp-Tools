@@ -44,8 +44,8 @@ public:
     
   void    run() {
     while (!stateMachine.isEmpty()) {
-    stateMachine.update(1); // TODO : Replace 1 with the real frametime
-    stateMachine.draw();
+      stateMachine.update(1); // TODO : Replace 1 with the real frametime
+      stateMachine.draw();
     }
   }
 };
