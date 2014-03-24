@@ -1,68 +1,114 @@
-#ifndef __STATE_MACHINE__
-#define __STATE_MACHINE__
+#include <cassert>
 
-#include <memory>
-#include <vector>
-#include <map>
-#include <string>
+#include "StateMachine.hpp"
 
-#include "StateIdentifiers.hpp"
-#include "State.hpp"
-
-class Application;
-
-class StateMachine
+StateMachine::StateMachine(Application *app) :
+    mStack(),
+    mPendingList(),
+    mApp(app),
+    mFactories()
 {
-public:
-
-    enum Action
-    {
-        Push,
-        Pop,
-        Clear
-    };
-
-    explicit StateMachine(Application *);
-
-    template <typename T>
-    void                registerState(StateIdentifier id);
-    //void                update(sf::Time dt);
-    void                update(double dt); // TODO : Replace this with the sfml timer instead of double dt
-    void                draw();
-    //void                handleEvent(const sf::Event& event);
-
-    void                pushState(StateIdentifier id);
-    void                popState();
-    void                clearStates();
-
-    bool                isEmpty() const;
-
-private:
-    State::Ptr			    createState(StateIdentifier id);
-    void				        applyPendingChanges();
-
-private:
-    struct PendingChange
-    {
-        explicit PendingChange(Action action, StateIdentifier id = StateIdentifier());
-        Action                    action;
-        StateIdentifier           stateIdentifier;
-    };
-
-private:
-    std::vector<State::Ptr>                                           mStack;
-    std::vector<PendingChange>                                        mPendingList;
-    Application                                                       *mApp;
-    std::map<StateIdentifier, std::function<State::Ptr()>>            mFactories;
-};
-
-template <typename T>
-void StateMachine::registerState(StateIdentifier id)
-{
-  mFactories[id] = [this] ()
-  {
-    return State::Ptr(new T(*this, mApp));
-  };
 }
 
-#endif // __STATE_MACHINE__
+
+State::Ptr StateMachine::createState(StateIdentifier id)
+{
+    auto found = mFactories.find(id);
+    assert(found != mFactories.end());
+
+    return found->second();
+}
+
+void StateMachine::update(double dt)
+//void StateMachine::update(sf::Time dt)
+{
+    // Iterate from top to bottom, stop as soon as update() returns false
+    for (auto it = mStack.rbegin(); it != mStack.rend(); ++it)
+    {
+        if (!((*it)->update(dt)))
+            break;
+    }
+
+    applyPendingChanges();
+}
+
+void StateMachine::draw()
+{
+    // Draw all active states from bottom to top
+    for(State::Ptr& state : mStack)
+        state->draw();
+}
+
+// TODO : remove SFML dependency
+//void StateMachine::handleEvent(const sf::Event &event)
+//{
+//    for (auto it = mStack.rbegin(); it != mStack.rend(); ++it)
+//    {
+//        if (!(*it)->handleEvent(event))
+//            break;
+//    }
+//
+//    applyPendingChanges();
+//}
+
+void StateMachine::pushState(StateIdentifier id)
+{
+    mPendingList.push_back(PendingChange(Push, id));
+    applyPendingChanges();
+}
+
+void StateMachine::popState()
+{
+    mPendingList.push_back(PendingChange(Pop));
+}
+
+void StateMachine::clearStates()
+{
+    mPendingList.push_back(PendingChange(Clear));
+}
+
+bool StateMachine::isEmpty() const
+{
+    return mStack.empty();
+}
+
+void StateMachine::applyPendingChanges()
+{
+    for(PendingChange change : mPendingList)
+    {
+        switch(change.action)
+        {
+            case Push:
+                if(!mStack.empty())
+                {
+                    mStack.back()->onPause();
+                }
+                mStack.push_back(createState(change.stateIdentifier));
+                break;
+
+            case Pop:
+                mStack.pop_back();
+                if(!mStack.empty())
+                {
+                    mStack.back()->onResume();
+                }
+                break;
+
+            case Clear:
+                mStack.clear();
+            break;
+        }
+    }
+
+    mPendingList.clear();
+}
+
+
+
+StateMachine::PendingChange::PendingChange(Action action, StateIdentifier stateID) :
+    action(action),
+    stateIdentifier(stateID)
+{
+}
+
+
