@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "State.hpp"
+#include "StateIdentifiers.hpp"
 
 class IntroState : public State
 {
