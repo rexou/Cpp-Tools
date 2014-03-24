@@ -11,3 +11,8 @@ How it works
 ----------------
 
 - Type erasure
+
+Samples
+----------------
+
+See [property_test.cpp](https://github.com/rexou/Cpp-Tools/blob/master/Property/property_test.cpp "sample")
