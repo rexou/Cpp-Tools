@@ -41,9 +41,9 @@ public:
         {
             if (typeid(T).name() != it->second->getType())
                 // should we throw an exception or assert(requested_type == real_type) ?
-                throw std::invalid_argument("PropertyHolder::getValue<T>(const Key &) : Requested type T != Property's type");
+                throw std::invalid_argument("PropertyHolder::getValue<T>(const Key &) : Requested type T != Property's type" +
+                                            "(requested \"" + Key + "\" as type " + typeid(T).name() + ")");
 
-            // Reinterpret cast in release should be ok but might change with a safer cast in debug mode
             Property<T> *tmp = reinterpret_cast<Property<T> *>(&*it->second);
 
             return tmp->getValue();
