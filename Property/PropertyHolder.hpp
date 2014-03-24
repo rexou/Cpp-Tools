@@ -5,6 +5,7 @@
 #include <memory>
 #include <stdexcept>
 #include <iostream>
+#include <typeinfo>
 
 #include "Property.hpp"
 
