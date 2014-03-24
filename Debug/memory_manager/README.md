@@ -20,7 +20,8 @@ How it works
 Example
 -------
 
-See samples/main.cpp for self-explanatory source code :)
+
+See [samples/main.cpp](https://github.com/rexou/Cpp-Tools/blob/master/Debug/memory_manager/samples/main.cpp "samples/main.cpp") for self-explanatory source code & the resulting file [samples/memory_leaks.report](https://github.com/rexou/Cpp-Tools/blob/master/Debug/memory_manager/samples/memory_leaks.report "samples/memory_leaks.report").
 
 Hope you'll enjoy it.
 
