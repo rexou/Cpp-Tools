@@ -84,9 +84,11 @@ void StateMachine::applyPendingChanges()
                     mStack.back()->onPause();
                 }
                 mStack.push_back(createState(change.stateIdentifier));
+                mStack.back()->onInit();
                 break;
 
             case Pop:
+                mStack.back()->onClose();
                 mStack.pop_back();
                 if(!mStack.empty())
                 {
