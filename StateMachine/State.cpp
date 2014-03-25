@@ -9,6 +9,7 @@ State::State(StateMachine &states, Application *app) :
 
 State::~State()
 {
+    onClose();
 }
 
 void State::requestStackPush(StateIdentifier stateID)
