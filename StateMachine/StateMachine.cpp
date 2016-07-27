@@ -10,7 +10,6 @@ StateMachine::StateMachine(Application *app) :
 {
 }
 
-
 State::Ptr StateMachine::createState(StateIdentifier id)
 {
     auto found = mFactories.find(id);
@@ -20,7 +19,6 @@ State::Ptr StateMachine::createState(StateIdentifier id)
 }
 
 void StateMachine::update(double dt)
-//void StateMachine::update(sf::Time dt)
 {
     // Iterate from top to bottom, stop as soon as update() returns false
     for (auto it = mStack.rbegin(); it != mStack.rend(); ++it)
@@ -38,18 +36,6 @@ void StateMachine::draw()
     for(State::Ptr& state : mStack)
         state->draw();
 }
-
-// TODO : remove SFML dependency
-//void StateMachine::handleEvent(const sf::Event &event)
-//{
-//    for (auto it = mStack.rbegin(); it != mStack.rend(); ++it)
-//    {
-//        if (!(*it)->handleEvent(event))
-//            break;
-//    }
-//
-//    applyPendingChanges();
-//}
 
 void StateMachine::pushState(StateIdentifier id)
 {
@@ -104,8 +90,6 @@ void StateMachine::applyPendingChanges()
 
     mPendingList.clear();
 }
-
-
 
 StateMachine::PendingChange::PendingChange(Action action, StateIdentifier stateID) :
     action(action),

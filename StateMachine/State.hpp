@@ -20,10 +20,7 @@ public:
   virtual ~State();
 
   virtual void    draw() {};
-  //virtual bool    update(sf::Time dt) = 0;
-  // update() return true if states beneath it should be updated, false otherwise (e.g update() will return false for a PauseState)
-  virtual bool    update(double dt) { return true; }; // TODO : Replace this with the sfml timer instead of double dt
-  //virtual bool    handleEvent(const sf::Event& event) = 0; // TODO : Remove the sfml dependency by creating a wrapper for events
+  virtual bool    update(double dt) { return true; };
 
   virtual void    onInit() {};
   virtual void    onPause() {}

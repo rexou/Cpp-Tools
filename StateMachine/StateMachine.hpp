@@ -26,10 +26,9 @@ public:
 
     template <typename T>
     void                registerState(StateIdentifier id);
-    //void                update(sf::Time dt);
-    void                update(double dt); // TODO : Replace this with the sfml timer instead of double dt
+    
+    void                update(double dt);
     void                draw();
-    //void                handleEvent(const sf::Event& event);
 
     void                pushState(StateIdentifier id);
     void                popState();
@@ -39,7 +38,7 @@ public:
 
 private:
     State::Ptr			    createState(StateIdentifier id);
-    void				        applyPendingChanges();
+    void				    applyPendingChanges();
 
 private:
     struct PendingChange

@@ -1,7 +1,10 @@
 #include <iostream>
+#include <chrono>
+#include <thread> // sleep_for
 
 #include "State.hpp"
 #include "StateIdentifiers.hpp"
+#include "StateMachine.hpp"
 
 class IntroState : public State
 {
@@ -34,7 +37,7 @@ class Application
 
 public:
 
-  Application() {
+  Application() : stateMachine(this) {
     stateMachine.registerState<IntroState>(StateIdentifier::INTRO);
   }
   
@@ -44,6 +47,7 @@ public:
     
   void    run() {
     while (!stateMachine.isEmpty()) {
+      std::this_thread::sleep_for(std::chrono::seconds(1));
       stateMachine.update(1); // TODO : Replace 1 with the real frametime
       stateMachine.draw();
     }
